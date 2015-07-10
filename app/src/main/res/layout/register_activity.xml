@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ellak.ellakquiz.ui.activity.RegisterActivity">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerProgressBar" android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" android:visibility="gone"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerForm"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="text" android:ems="10" android:id="@+id/usernameEditText"
+            android:hint="@string/hint_user_name"/>
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" android:ems="10" android:id="@+id/emailEditText"
+            android:hint="@string/hint_email"/>
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="textPassword" android:ems="10" android:id="@+id/passwordEditText"
+            android:hint="@string/hint_password"/>
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="textPassword" android:ems="10" android:id="@+id/re_passwordEditText"
+            android:hint="@string/hint_re_password"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/register_title"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/register_description"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="26dp"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/registerForm" />
+
+    <Button android:layout_width="193dp" android:layout_height="wrap_content"
+        android:text="@string/register" android:id="@+id/createAccountButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/registerForm"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

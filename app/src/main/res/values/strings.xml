@@ -11,6 +11,16 @@
     <string name="mainmenu_button_load">Φόρτωση Παιχνιδιού</string>
     <string name="mainmenu_button_stats">Στατιστικά</string>
     <string name="mainmenu_button_logout">Αποσύνδεση</string>
+    <string name="hint_user_name">όνομα χρήστη</string>
+    <string name="hint_email">email</string>
+    <string name="hint_password">κωδικός χρήστη</string>
+    <string name="login">Σύνδεση</string>
+    <string name="register">Εγγραφή</string>
+    <string name="error_invalid_password">Λάθος όνομα_χρήστη/κωδικός</string>
+    <string name="error_field_required">Υποχρεωτικό πεδίο</string>
+    <string name="hint_re_password">επιβεβαίωση κωδικού χρήστη</string>
+    <string name="register_title">Εγγραφή Χρήστη</string>
+    <string name="register_description">Δημιουργήστε το λογαριασμό σας,\nγια να βελτιώνετε το σκόρ σας από παντού!!!</string>
 
 
 </resources>

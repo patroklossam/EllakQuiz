@@ -41,8 +41,9 @@ public class DatabaseAPI {
         return endpoint+request;
     }
 
-    private static String getCards(int num){
-        String request = "/HandlerServlet?method=getCard?howMany=" +num;
+    private static String getCards(int num,String category){
+        String request = "/HandlerServlet?method=getCard?howMany=" +num
+                        + "&category="+category;
         return endpoint+request;
     }
 
@@ -72,8 +73,7 @@ public class DatabaseAPI {
                 url = login(login, passkey);
                 break;
             case RETRIEVE_CARDS:
-                //TODO: set the number from rounds selection
-                url = getCards(20);
+                url = getCards(Integer.parseInt(params[0].toString()),params[1].toString());
                 break;
             default:
                 break;

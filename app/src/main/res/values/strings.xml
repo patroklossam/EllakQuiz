@@ -3,4 +3,14 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- MainMenu strings-->
+    <string name="menu_title">Quiz Γνώσεων\nΕΛ/ΛΑΚ</string>
+    <string name="mainmenu_button_newgame_s">Νέο Παιχνίδι (απλό)</string>
+    <string name="mainmenu_button_newgame_t">Νέο Παιχνίδι (με χρόνο)</string>
+    <string name="mainmenu_button_load">Φόρτωση Παιχνιδιού</string>
+    <string name="mainmenu_button_stats">Στατιστικά</string>
+    <string name="mainmenu_button_logout">Αποσύνδεση</string>
+
+
 </resources>

@@ -72,7 +72,7 @@ public class GameScenario implements Serializable{
     public void init(Category ctg) throws Exception {
 
         Gson gson = new Gson();
-
+        //TODO: getFromContext the 5 below
         String resp = DatabaseAPI.getResponse(ApiActions.RETRIEVE_CARDS,5,ctg).toString();
 
         CardDTO[] cardArray = gson.fromJson(resp,CardDTO[].class);

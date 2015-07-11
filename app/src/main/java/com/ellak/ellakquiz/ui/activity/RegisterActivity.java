@@ -16,13 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ellak.ellakquiz.R;
+import com.ellak.ellakquiz.database.ApiActions;
+import com.ellak.ellakquiz.database.handlerAPI.DatabaseAPI;
 
 import java.security.MessageDigest;
 import java.util.regex.Pattern;
 
-/**
- * Created by Veruz on 3/7/2015.
- */
 public class RegisterActivity extends Activity{
     private String PASSKEY;
     private View registerProgressView;
@@ -204,7 +203,7 @@ public class RegisterActivity extends Activity{
                 PASSKEY = md.digest().toString();
 
                 //TODO: database handling
-                //DatabaseAPI.execute(ApiActions.SAVE_USER,usernameEditText.getText(), emailEditText.getText().toString(), PASSKEY);
+                DatabaseAPI.getResponse(ApiActions.SAVE_USER, usernameEditText.getText(), PASSKEY, emailEditText.getText().toString());
 
                 return true;
             } catch (Exception e) {

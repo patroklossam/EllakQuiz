@@ -20,17 +20,14 @@ import java.net.URL;
  */
 public class DatabaseAPI {
 
-
-
-
-    private static final String endpoint = "http://83.212.98.207:8080/";
+    private static final String endpoint = "http://83.212.98.207:8080/ellak_ws";
     private static final String USER_AGENT = "Mozilla/5.0";
     private static String result;
 
-    private static String saveNewUser(String login, String passkey){
+    private static String saveNewUser(String login, String passkey, String email){
 
         String request = "/HandlerServlet?method=new?login=" + login
-                + "?passkey=" + passkey;
+                + "&passkey=" + passkey + "&email="+ email;
 
         return endpoint+request;
     }
@@ -57,14 +54,16 @@ public class DatabaseAPI {
         // fields to be used
         String login;
         String passkey;
+        String email;
 
 
         switch(action){
             case SAVE_USER:
                 login = params[0].toString();
                 passkey = params[1].toString();
+                email = params[2].toString();
 
-                url = saveNewUser(login, passkey);
+                url = saveNewUser(login, passkey,email);
                 break;
             case LOGIN:
                 login = params[0].toString();

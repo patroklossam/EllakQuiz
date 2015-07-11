@@ -236,7 +236,7 @@ public class GreetActivity extends Activity {
             showProgress(false);
 
             if (success) { // if credentials was found in server email and password is correct
-                Toast.makeText(getApplicationContext(),"Επιτυχής Σύνδεση!", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(),"Ξ•Ο€ΞΉΟ„Ο…Ο‡Ξ®Ο‚ Ξ£ΟΞ½Ξ΄ΞµΟƒΞ·!", Toast.LENGTH_LONG).show();
                 finish();
                 Intent intent = new Intent(GreetActivity.this,MainMenuActivity.class);
                 GreetActivity.this.startActivity(intent);
@@ -244,8 +244,6 @@ public class GreetActivity extends Activity {
                 mPasswordView.setError(getString(R.string.error_invalid_password));
                 mPasswordView.requestFocus();
             }
-
-
         }
 
         @Override

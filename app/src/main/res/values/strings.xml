@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EllakQuiz</string>
 
@@ -21,6 +22,11 @@
     <string name="hint_re_password">επιβεβαίωση κωδικού χρήστη</string>
     <string name="register_title">Εγγραφή Χρήστη</string>
     <string name="register_description">Δημιουργήστε το λογαριασμό σας,\nγια να βελτιώνετε το σκόρ σας από παντού!!!</string>
+    <string name="option_menu_all_categ">Ερωτήσεις από\n όλες τις κατηγορίες</string>
+    <string name="option_menu_select_category">Επιλογή \nκατηγορίας</string>
+    <string name="category_select">Επιλογή Κατηγορίας</string>
+    <string name="category1">Κατηγορία 1</string>
+    <string name="category2">Κατηγορία 2</string>
 
 
 </resources>

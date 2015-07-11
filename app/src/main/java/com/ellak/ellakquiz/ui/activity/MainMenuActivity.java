@@ -1,8 +1,10 @@
 package com.ellak.ellakquiz.ui.activity;
 
+import com.ellak.ellakquiz.EllakQuiz;
 import com.ellak.ellakquiz.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +34,11 @@ public class MainMenuActivity extends Activity {
         newGame_simple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((EllakQuiz)getApplicationContext()).setTime(false);
+
+                finish();
+                Intent intent = new Intent(MainMenuActivity.this,GameOptionActivity.class);
+                startActivity(intent);
 
 
             }
@@ -41,8 +48,11 @@ public class MainMenuActivity extends Activity {
         newGame_timed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((EllakQuiz)getApplicationContext()).setTime(true);
 
-
+                finish();
+                Intent intent = new Intent(MainMenuActivity.this,GameOptionActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -69,6 +79,11 @@ public class MainMenuActivity extends Activity {
             @Override
             public void onClick(View view) {
 
+                ((EllakQuiz)getApplicationContext()).reset();
+
+                finish();
+                Intent intent = new Intent(MainMenuActivity.this,GreetActivity.class);
+                startActivity(intent);
 
             }
         });

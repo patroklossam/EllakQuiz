@@ -67,38 +67,38 @@ public class RegisterActivity extends Activity{
 
         View focusView = null;
         if(!isValidUsername(usernameEditText.getText().toString())){
-            usernameEditText.setError("Το όνομα χρήστη πρέπει να είναι τουλάχιστον 8 χαρακτήρες");
+            usernameEditText.setError("Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ 8 Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚");
             focusView = usernameEditText;
             cancel = true;
         }
         if(userNameExists(usernameEditText.getText().toString())){
-            usernameEditText.setError("Υπάρχει ήδη...");
+            usernameEditText.setError("Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ·...");
             focusView = usernameEditText;
             cancel = true;
         }
         if (!isEmailValid(emailEditText.getText().toString())){
-            emailEditText.setError("Μή έκγυρο ή κενό");
+            emailEditText.setError("ΞΞ® Ξ­ΞΊΞ³Ο…ΟΞΏ Ξ® ΞΊΞµΞ½Ο");
             focusView = emailEditText;
             cancel = true;
         }
         if(emailExists(emailEditText.getText().toString())){
-            emailEditText.setError("Υπάρχει ήδη λογαριασμός με αυτό το email.");
+            emailEditText.setError("Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ· Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΟ‚ ΞΌΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ email.");
             focusView = emailEditText;
             cancel = true;
         }
         if(passwordEditText.getText().toString().equals(passwordEditText2.getText().toString())) {
             if (!isValid(passwordEditText.getText().toString())) {
-                passwordEditText.setError("Επιλέξτε μεγαλύτερο κωδικό");
+                passwordEditText.setError("Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ");
                 focusView = passwordEditText;
                 cancel = true;
             }
             if (!isValid(passwordEditText2.getText().toString())) {
-                passwordEditText2.setError("Επιλέξτε μεγαλύτερο κωδικό");
+                passwordEditText2.setError("Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ");
                 focusView = passwordEditText2;
                 cancel = true;
             }
         }else{
-            passwordEditText.setError("Οι κωδικοί δεν ταιριάζουν");
+            passwordEditText.setError("ΞΞΉ ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΞ― Ξ΄ΞµΞ½ Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞΏΟ…Ξ½");
             focusView = passwordEditText;
             cancel = true;
         }
@@ -198,20 +198,22 @@ public class RegisterActivity extends Activity{
 
             // hash the password so that no-one can see the real one
             try {
-                MessageDigest md = MessageDigest.getInstance("SHA-256");
-                md.update(passwordEditText.getText().toString().getBytes("UTF-8"));
-                PASSKEY = md.digest().toString();
+//                MessageDigest md = MessageDigest.getInstance("SHA-256");
+//                md.update(passwordEditText.getText().toString().getBytes("UTF-8"));
+                PASSKEY = passwordEditText.getText().toString();//md.digest().toString();
 
-                //TODO: database handling
-                DatabaseAPI.getResponse(ApiActions.SAVE_USER, usernameEditText.getText(), PASSKEY, emailEditText.getText().toString());
+                String email = emailEditText.getText().toString();
+
+                email = email.replace("@","_._");
+
+                DatabaseAPI.getResponse(ApiActions.SAVE_USER, usernameEditText.getText().toString(), PASSKEY, email);
 
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            //TODO: change to false when online
-            return true;
+            return false;
         }
 
         @Override
@@ -220,7 +222,7 @@ public class RegisterActivity extends Activity{
             showProgress(false);
             if(aBoolean) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                builder.setMessage("Εγγραφή Επιτυχής! Παρακαλώ Συνδεθείτε!")
+                builder.setMessage("Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ξ•Ο€ΞΉΟ„Ο…Ο‡Ξ®Ο‚! Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ£Ο…Ξ½Ξ΄ΞµΞΈΞµΞ―Ο„Ξµ!")
                         .setCancelable(false)
                         .setPositiveButton("OK",new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int id) {

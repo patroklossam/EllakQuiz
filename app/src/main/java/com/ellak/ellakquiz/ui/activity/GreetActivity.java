@@ -16,6 +16,8 @@ import android.widget.*;
 
 import com.ellak.ellakquiz.EllakQuiz;
 import com.ellak.ellakquiz.R;
+import com.ellak.ellakquiz.database.ApiActions;
+import com.ellak.ellakquiz.database.handlerAPI.DatabaseAPI;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -188,15 +190,15 @@ public class GreetActivity extends Activity {
         private final String mPassword;
         private final String PASSKEY;
         private long user_id;
-        private  String[] pieces;
+//        private  String[] pieces;
 
-        UserLoginTask(String email, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-            mUserName = email;
+        UserLoginTask(String uname, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+            mUserName = uname;
             mPassword = password;
 
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(mPassword.getBytes("UTF-8"));
-            PASSKEY = md.digest().toString();
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            md.update(mPassword.getBytes("UTF-8"));
+            PASSKEY = mPassword; // md.digest().toString();
         }
 
         @Override
@@ -204,8 +206,8 @@ public class GreetActivity extends Activity {
             // TODO: attempt authentication against a network service.
 
             try {
-
-                //user_id = Long.parseLong(DatabaseAPI.execute(ApiActions.LOGIN, mUserName,PASSKEY).toString());
+                String resp = DatabaseAPI.getResponse(ApiActions.LOGIN, mUserName, PASSKEY).toString();
+                user_id = Long.parseLong(resp);
                 Thread.sleep(2000);
 
                 if(user_id >=0) {
@@ -213,13 +215,13 @@ public class GreetActivity extends Activity {
                     return true;
                 }
                 //TODO: change to false when online
-                return true;
+                return false;
             } catch (InterruptedException e) {
                 return false;
             } catch (Exception e) {
-                e.printStackTrace();
+                return false;
             }
-
+/*
             for (String credential : DUMMY_CREDENTIALS) {
                 pieces = credential.split(":");
                 if (pieces[0].equals(mUserName)) {
@@ -227,7 +229,7 @@ public class GreetActivity extends Activity {
                 }
             }
 
-            return true;
+            return true;*/
         }
 
         @Override

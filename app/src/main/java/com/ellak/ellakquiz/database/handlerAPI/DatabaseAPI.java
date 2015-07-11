@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Patroklos on 7/10/15.
@@ -22,24 +23,25 @@ public class DatabaseAPI {
 
     private static final String endpoint = "http://83.212.98.207:8080/ellak_ws";
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static String result;
+    private static Object result;
+
 
     private static String saveNewUser(String login, String passkey, String email){
 
-        String request = "/HandlerServlet?method=new?login=" + login
+        String request = "/HandlerServlet?method=new&login=" + login
                 + "&passkey=" + passkey + "&email="+ email;
 
         return endpoint+request;
     }
 
     private static String login(String login, String passkey){
-        String request = "/HandlerServlet?method=connect?login=" + login
+        String request = "/HandlerServlet?method=connect&login=" + login
                 + "&passkey=" + passkey;
         return endpoint+request;
     }
 
     private static String getCards(int num,String category){
-        String request = "/HandlerServlet?method=getCard?howMany=" +num
+        String request = "/HandlerServlet?method=getCard&howMany=" +num
                         + "&category="+category;
         return endpoint+request;
     }
@@ -47,7 +49,7 @@ public class DatabaseAPI {
 
 
 
-    public static String getResponse(ApiActions action, Object... params) throws Exception {
+    public static Object getResponse(ApiActions action, Object... params) throws Exception {
         //base url declaration
         String url = null;
 
@@ -63,12 +65,15 @@ public class DatabaseAPI {
                 passkey = params[1].toString();
                 email = params[2].toString();
 
+                //passkey = passkey.replaceAll("@","");
+
                 url = saveNewUser(login, passkey,email);
                 break;
             case LOGIN:
                 login = params[0].toString();
                 passkey = params[1].toString();
 
+                //passkey = passkey.replaceAll("@", "");
                 url = login(login, passkey);
                 break;
             case RETRIEVE_CARDS:
@@ -112,13 +117,11 @@ public class DatabaseAPI {
                         in.close();
 
 
-                        return new JSONObject(String.valueOf(response)).toString();
+                        return String.valueOf(response);
                     }
-                } catch (JSONException | IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
             return null;
         }
@@ -127,8 +130,12 @@ public class DatabaseAPI {
         protected void onPostExecute(String s) {
             try{
                 //TODO: try to use Gson
-                JSONObject json = new JSONObject(s);
-                result = json.get("return").toString();
+                if(s.contains("return")) {
+                    JSONObject json = new JSONObject(s);
+                    result = json.get("return").toString();
+                }else{
+                    result=s;
+                }
             }catch(Exception ex){
                 ex.printStackTrace();
             }

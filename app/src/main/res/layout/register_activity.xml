@@ -21,16 +21,20 @@
 
         <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
             android:inputType="text" android:ems="10" android:id="@+id/usernameEditText"
-            android:hint="@string/hint_user_name"/>
+            android:hint="@string/hint_user_name"
+            android:singleLine="true" />
         <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
             android:inputType="textEmailAddress" android:ems="10" android:id="@+id/emailEditText"
-            android:hint="@string/hint_email"/>
+            android:hint="@string/hint_email"
+            android:singleLine="true" />
         <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
             android:inputType="textPassword" android:ems="10" android:id="@+id/passwordEditText"
-            android:hint="@string/hint_password"/>
+            android:hint="@string/hint_password"
+            android:singleLine="true" />
         <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
             android:inputType="textPassword" android:ems="10" android:id="@+id/re_passwordEditText"
-            android:hint="@string/hint_re_password"/>
+            android:hint="@string/hint_re_password"
+            android:singleLine="true" />
     </LinearLayout>
 
     <TextView

@@ -207,8 +207,8 @@ public class GreetActivity extends Activity {
 
             try {
                 String resp = DatabaseAPI.getResponse(ApiActions.LOGIN, mUserName, PASSKEY).toString();
-                user_id = Long.parseLong(resp);
                 Thread.sleep(2000);
+                user_id = Long.parseLong(resp);
 
                 if(user_id >=0) {
                     ((EllakQuiz) getApplicationContext()).setUser_id(user_id);
@@ -221,15 +221,6 @@ public class GreetActivity extends Activity {
             } catch (Exception e) {
                 return false;
             }
-/*
-            for (String credential : DUMMY_CREDENTIALS) {
-                pieces = credential.split(":");
-                if (pieces[0].equals(mUserName)) {
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            return true;*/
         }
 
         @Override

@@ -1,6 +1,7 @@
 package com.ellak.ellakquiz.ui.activity;
 
 import com.ellak.ellakquiz.EllakQuiz;
+import com.ellak.ellakquiz.GameScenario;
 import com.ellak.ellakquiz.R;
 
 import android.app.Activity;
@@ -9,6 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 
 public class MainMenuActivity extends Activity {
@@ -60,7 +65,16 @@ public class MainMenuActivity extends Activity {
         loadGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                try {
+                    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("savegame.elk"));
+                    ((EllakQuiz)getApplicationContext()).setScenario((GameScenario) ois.readObject());
+                    ois.close();
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                finish();
+                Intent intent = new Intent(MainMenuActivity.this,GameActivity.class);
+                startActivity(intent);
 
             }
         });

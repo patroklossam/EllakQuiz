@@ -65,15 +65,33 @@ public class GameScenario implements Serializable{
     public void increaseCorrect(){
         correct++;
     }
-    public void nextCard(){
-        current++;
+
+    public void decreaseCurrentOnSave(){
+        current--;
     }
 
-    public void init(Category ctg) throws Exception {
+    public void init(Category ctg, int count) throws Exception {
 
         Gson gson = new Gson();
-        //TODO: getFromContext the 5 below
-        String resp = DatabaseAPI.getResponse(ApiActions.RETRIEVE_CARDS,5,ctg).toString();
+
+        String cat = "";
+
+        switch (ctg){
+            case CATEGORY1:
+                cat="1";
+                break;
+            case CATEGORY2:
+                cat="2";
+            case NO:
+                cat = "NO";
+                break;
+            default:
+                cat="NO";
+                break;
+        }
+
+        String resp = DatabaseAPI.getResponse(ApiActions.RETRIEVE_CARDS,count,cat).toString();
+
 
         CardDTO[] cardArray = gson.fromJson(resp,CardDTO[].class);
 
@@ -94,9 +112,13 @@ public class GameScenario implements Serializable{
     }
 
     public boolean hasMore(){
-        if(current < cards.size())
+        if(current < cards.size()-1)
             return true;
         return false;
+    }
+
+    public Double getScore(){
+        return ((double)correct/(cards.size()-1))*100;
     }
 
 }

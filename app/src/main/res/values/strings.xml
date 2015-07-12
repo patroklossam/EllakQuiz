@@ -27,6 +27,17 @@
     <string name="category_select">Επιλογή Κατηγορίας</string>
     <string name="category1">Κατηγορία 1</string>
     <string name="category2">Κατηγορία 2</string>
+    <string name="go_to_menu">Επιστροφή στο Μενού</string>
+    <string name="congrats">Συγχαρητήρια!!!</string>
+    <string name="score_label">Score:</string>
+    <string name="score_field">score_field</string>
+    <string name="pause_button">pause_button</string>
+    <string name="question_space">question</string>
+    <string name="continue_btn">Συνέχισε</string>
+    <string name="save_btn">Αποθήκευση και\n έξοδος</string>
+    <string name="quit_btn">Έξοδος στο Μενού</string>
+    <string name="pause">Pause</string>
+    <string name="example_timer">00</string>
 
 
 </resources>

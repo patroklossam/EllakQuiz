@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_vertical"
+    android:minHeight="150dp"
+    android:id="@+id/result_dialog"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center_horizontal">
+
+    <Button
+        android:layout_width="234dp"
+        android:layout_height="72dp"
+        android:text="@string/go_to_menu"
+        android:id="@+id/returnButton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="131dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:layout_gravity="center_horizontal|top"
+        android:gravity="center_horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/congrats"
+        android:id="@+id/textView5"
+        android:layout_gravity="center_vertical"
+        android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="153dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/score_label"
+            android:id="@+id/textView6"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/score_field"
+            android:id="@+id/score_field"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+
+</FrameLayout>

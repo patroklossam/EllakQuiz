@@ -34,7 +34,7 @@ public class GameCategoryActivity extends Activity {
             public void onClick(View view) {
                 ((EllakQuiz) getApplicationContext()).setCategory(Category.CATEGORY1);
 
-                ((EllakQuiz)getApplicationContext()).initScenario();
+                ((EllakQuiz)getApplicationContext()).initScenario(5);
 
                 finish();
                 Intent intent = new Intent(GameCategoryActivity.this,GameActivity.class);
@@ -48,7 +48,7 @@ public class GameCategoryActivity extends Activity {
             public void onClick(View view) {
                 ((EllakQuiz) getApplicationContext()).setCategory(Category.CATEGORY2);
 
-                ((EllakQuiz)getApplicationContext()).initScenario();
+                ((EllakQuiz)getApplicationContext()).initScenario(2);
 
                 finish();
                 Intent intent = new Intent(GameCategoryActivity.this,GameActivity.class);

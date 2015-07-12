@@ -50,15 +50,20 @@ public class EllakQuiz extends Application {
 
     public void reset(){
         user_id = -1L;
+        resetGame();
+    }
+
+    public void resetGame(){
         time = false;
         category=Category.NO;
         scenario = null;
+
     }
 
-    public void initScenario(){
+    public void initScenario(int numOfCards){
         scenario = new GameScenario();
         try {
-            scenario.init(category);
+            scenario.init(category,numOfCards);
         } catch (Exception e) {
             e.printStackTrace();
         }

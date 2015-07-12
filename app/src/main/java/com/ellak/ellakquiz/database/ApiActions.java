@@ -6,5 +6,7 @@ package com.ellak.ellakquiz.database;
 public enum ApiActions {
     SAVE_USER,
     LOGIN,
-    RETRIEVE_CARDS
+    RETRIEVE_CARDS,
+    SAVE_STATS,
+    GET_STATS
 }

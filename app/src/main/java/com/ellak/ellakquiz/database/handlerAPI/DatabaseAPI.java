@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Patroklos on 7/10/15.
@@ -23,7 +24,7 @@ public class DatabaseAPI {
 
     private static final String endpoint = "http://83.212.98.207:8080/ellak_ws";
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static Object result;
+    private static String result;
 
 
     private static String saveNewUser(String login, String passkey, String email){
@@ -40,9 +41,20 @@ public class DatabaseAPI {
         return endpoint+request;
     }
 
-    private static String getCards(int num,String category){
-        String request = "/HandlerServlet?method=getCard&howMany=" +num
-                        + "&category="+category;
+    private static String getCards(int num, String category){
+        String request = "/HandlerServlet?method=getCards&howMany=" +num
+                + "&category="+category;
+        return endpoint+request;
+    }
+
+    private static String saveStats(String score){
+        String request = "/HandlerServlet?method=updateStats&score=" +score;
+        return endpoint+request;
+    }
+
+
+    private static String getStats(String user_id){
+        String request = "/HandlerServlet?method=getStats&user_id=" +user_id;
         return endpoint+request;
     }
 
@@ -77,7 +89,13 @@ public class DatabaseAPI {
                 url = login(login, passkey);
                 break;
             case RETRIEVE_CARDS:
-                url = getCards(Integer.parseInt(params[0].toString()),params[1].toString());
+                url = getCards(Integer.parseInt(params[0].toString()), params[1].toString());
+                break;
+            case SAVE_STATS:
+                url = saveStats(params[0].toString());
+                break;
+            case GET_STATS:
+                url = saveStats(params[0].toString());
                 break;
             default:
                 break;
@@ -87,7 +105,40 @@ public class DatabaseAPI {
         // add format parameter to base http request
         url+="&format=json";
 
-        new doGet().execute(url);
+        if(action == ApiActions.SAVE_USER ||action ==  ApiActions.LOGIN) {
+            try {
+                HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+                // optional default is GET
+
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+
+                int responseCode = con.getResponseCode();
+                if (responseCode == 200) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+
+
+                    result = response.toString();
+                    if(result.contains("return")) {
+                        JSONObject json = new JSONObject(result);
+                        result = json.get("return").toString();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            result = new doGet().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url).get(3000, TimeUnit.MILLISECONDS);
+        }
+//        new doGet().execute(url);
 
         return result;
     }
@@ -116,8 +167,18 @@ public class DatabaseAPI {
                         }
                         in.close();
 
+                        String result = response.toString();
 
-                        return String.valueOf(response);
+                        try{
+                            //TODO: try to use Gson
+                            if(result.contains("return")) {
+                                JSONObject json = new JSONObject(result);
+                                result = json.get("return").toString();
+                            }
+                        }catch(Exception ex){
+                            ex.printStackTrace();
+                        }
+                        return result;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -128,17 +189,7 @@ public class DatabaseAPI {
 
         @Override
         protected void onPostExecute(String s) {
-            try{
-                //TODO: try to use Gson
-                if(s.contains("return")) {
-                    JSONObject json = new JSONObject(s);
-                    result = json.get("return").toString();
-                }else{
-                    result=s;
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
+
         }
     }
 

@@ -82,6 +82,7 @@ public class GameScenario implements Serializable{
                 break;
             case CATEGORY2:
                 cat="2";
+                break;
             case NO:
                 cat = "NO";
                 break;

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -69,13 +70,14 @@ public class MainMenuActivity extends Activity {
                     ObjectInputStream ois = new ObjectInputStream(new FileInputStream("savegame.elk"));
                     ((EllakQuiz)getApplicationContext()).setScenario((GameScenario) ois.readObject());
                     ois.close();
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                finish();
-                Intent intent = new Intent(MainMenuActivity.this,GameActivity.class);
-                startActivity(intent);
 
+                    finish();
+                    Intent intent = new Intent(MainMenuActivity.this,GameActivity.class);
+                    startActivity(intent);
+
+                } catch (IOException | ClassNotFoundException e) {
+                    Toast.makeText(getApplicationContext(),"Δεν βρέθηκε αποθηκευμένο παιχνίδι",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

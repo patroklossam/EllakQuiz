@@ -40,7 +40,27 @@ public class ResultsActivity extends Activity {
         TextView score = (TextView) findViewById(R.id.score_field);
 
         score.setText(((EllakQuiz) getApplicationContext()).getScenario().getScore().toString() + " %");
+        String ctg = "";
+        switch (((EllakQuiz) getApplicationContext()).getCategory()){
+            case NO:
+                ctg = "NO";
+                break;
+            case CATEGORY1:
+                ctg = "1";
+                break;
+            case CATEGORY2:
+                ctg= "2";
+                break;
+            default:
+                ctg = "NO";
+                break;
+        }
+        try {
+            DatabaseAPI.getResponse(ApiActions.SAVE_STATS, ((EllakQuiz) getApplicationContext()).getUser_id(), ((EllakQuiz) getApplicationContext()).getScenario().getScore(), ctg);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Button back = (Button) findViewById(R.id.returnButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +68,7 @@ public class ResultsActivity extends Activity {
                 ((EllakQuiz) getApplicationContext()).resetGame();
 
                 finish();
-                Intent intent = new Intent(ResultsActivity.this,MainMenuActivity.class);
+                Intent intent = new Intent(ResultsActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });

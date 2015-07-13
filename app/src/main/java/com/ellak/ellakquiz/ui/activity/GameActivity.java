@@ -38,12 +38,13 @@ public class GameActivity extends FragmentActivity{
     private Chronometer chrono;
     private long paused_time;
 
-
+    private CountDownTimer timer;
     private Button ans1;
     private Button ans2;
     private Button ans3;
     private Button ans4;
 
+    private boolean onPause = false;
 
     private boolean selected1=false, selected2=false, selected3=false, selected4=false;
 
@@ -78,7 +79,7 @@ public class GameActivity extends FragmentActivity{
 
         timeView = (TextView) findViewById(R.id.timeView);
         if(((EllakQuiz) getApplicationContext()).isTime()) {
-           new CountDownTimer(31000, 1000) {
+           timer = new CountDownTimer(31000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
                     timeView.setText("" + millisUntilFinished / 1000);
@@ -87,13 +88,17 @@ public class GameActivity extends FragmentActivity{
 
 
                 public void onFinish() {
-                    if(paused_time <=1) {
-                        timeView.setText("" + 0);
-                        viewCorrect();
+                    timer.cancel();
+                    timeView.setText("" + 0);
+                    disableButtons();
+                    viewCorrect();
+
+                    if(!onPause) {
                         advance();
                     }
                 }
-            }.start();
+            };
+            timer.start();
         }else{
             timeView.setText("");
         }
@@ -154,8 +159,10 @@ public class GameActivity extends FragmentActivity{
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((EllakQuiz)getApplicationContext()).isTime())
-                    stopTimer();
+                /*if(((EllakQuiz)getApplicationContext()).isTime())
+                    stopTimer();*/
+
+                onPause=true;
 
                 LayoutInflater l_inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = l_inflater.inflate(R.layout.pause_screen,null);
@@ -192,8 +199,8 @@ public class GameActivity extends FragmentActivity{
                     public void onDismiss() {
                         switch (popupaction){
                             case -1:
-                                if(((EllakQuiz)getApplicationContext()).isTime())
-                                    startTimer();
+                                /*if(((EllakQuiz)getApplicationContext()).isTime())
+                                    startTimer();*/
                                 break;
                             case 0:
                                 try {
@@ -220,8 +227,13 @@ public class GameActivity extends FragmentActivity{
                                 break;
 
                         }
+
+                        onPause=false;
+                        if(timeView.getText().equals("0"))
+                            advance();
                     }
                 });
+
 
                 popup.showAsDropDown(pause, 50, -30);
                 popup.setFocusable(true);
@@ -242,28 +254,6 @@ public class GameActivity extends FragmentActivity{
 
     }
 
-    private void startTimer(){
-        new CountDownTimer(paused_time, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                timeView.setText("" + millisUntilFinished / 1000);
-                paused_time = millisUntilFinished / 1000;
-            }
-
-
-            public void onFinish() {
-                if(paused_time <=1) {
-                    timeView.setText("" + 0);
-                    viewCorrect();
-                    advance();
-                }
-            }
-        }.start();
-    }
-
-    private void stopTimer(){
-        paused_time = Long.parseLong(timeView.getText().toString());
-    }
 
     private void viewCorrect(){
         if(card.getFlag1())
@@ -316,12 +306,18 @@ public class GameActivity extends FragmentActivity{
     }
 
     private void advance(){
+
+        if(((EllakQuiz)getApplicationContext()).getScenario().isTimer()) {
+            timer.cancel();
+        }
+
         if(((EllakQuiz)getApplicationContext()).getScenario().hasMore()) {
 
             //delay starting new activity to let the user see the correct answer
             final Handler handle = new Handler();
             Runnable delay = new Runnable() {
                 public void run() {
+
                     finish();
                     Intent intent = new Intent(GameActivity.this,GameActivity.class);
                     startActivity(intent);
@@ -329,8 +325,7 @@ public class GameActivity extends FragmentActivity{
             };
             handle.postDelayed(delay,2000);
         }else{
-
-            finish();
+            this.finish();
             Intent intent = new Intent(GameActivity.this,ResultsActivity.class);
             startActivity(intent);
         }
@@ -338,6 +333,9 @@ public class GameActivity extends FragmentActivity{
 
     @Override
     public void onBackPressed() {
+        if(((EllakQuiz)getApplicationContext()).getScenario().isTimer())
+            timer.cancel();
+
         finish();
         Intent intent = new Intent(GameActivity.this,MainMenuActivity.class);
         startActivity(intent);

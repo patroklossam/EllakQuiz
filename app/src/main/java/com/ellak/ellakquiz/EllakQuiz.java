@@ -64,6 +64,7 @@ public class EllakQuiz extends Application {
         scenario = new GameScenario();
         try {
             scenario.init(category,numOfCards);
+            scenario.setTimer(isTime());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -47,13 +47,15 @@ public class DatabaseAPI {
         return endpoint+request;
     }
 
-    private static String saveStats(String score){
-        String request = "/HandlerServlet?method=updateStats&score=" +score;
+    private static String saveStats(long user_id, double score, String category){
+        String request = "/HandlerServlet?method=updateStats&user_id="+user_id
+                +"&score=" +score
+                +"&category="+category;
         return endpoint+request;
     }
 
 
-    private static String getStats(String user_id){
+    private static String getStats(long user_id){
         String request = "/HandlerServlet?method=getStats&user_id=" +user_id;
         return endpoint+request;
     }
@@ -92,10 +94,10 @@ public class DatabaseAPI {
                 url = getCards(Integer.parseInt(params[0].toString()), params[1].toString());
                 break;
             case SAVE_STATS:
-                url = saveStats(params[0].toString());
+                url = saveStats(Long.parseLong(params[0].toString()),Double.parseDouble(params[1].toString()),params[1].toString());
                 break;
             case GET_STATS:
-                url = saveStats(params[0].toString());
+                url = getStats(Long.parseLong(params[0].toString()));
                 break;
             default:
                 break;

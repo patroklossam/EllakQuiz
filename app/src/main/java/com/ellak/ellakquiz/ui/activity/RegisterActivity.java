@@ -206,9 +206,10 @@ public class RegisterActivity extends Activity{
 
                 email = email.replace("@","_._");
 
-                DatabaseAPI.getResponse(ApiActions.SAVE_USER, usernameEditText.getText().toString(), PASSKEY, email);
+                int ret = Integer.parseInt(DatabaseAPI.getResponse(ApiActions.SAVE_USER, usernameEditText.getText().toString(), PASSKEY, email).toString());
 
-                return true;
+                if(ret ==1)
+                    return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -234,6 +235,17 @@ public class RegisterActivity extends Activity{
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
                 // finish();
+            }else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setMessage("Υπάρχει χρήστης μς το ίδιο email ή όνομα")
+                        .setCancelable(false)
+                        .setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         }
     }
